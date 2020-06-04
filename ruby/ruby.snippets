@@ -101,15 +101,42 @@ snippet until
 	until ${1:condition}
 		${0:${VISUAL}}
 	end
+########################################################################
+#
+#                                    Class
+#######################################################################
 snippet cla class .. end
 	class ${1:`substitute(vim_snippets#Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`}
 		${0}
 	end
-snippet clai class .. initialize .. end
+snippet clay class .. initialize .. end
 	class ${1:`substitute(vim_snippets#Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`}
 		def initialize(${2:args})
 			${0}
 		end
+	end
+snippet mo m_option
+	m_option :${1}
+snippet po p_option
+	p_option :${1}, proc { ${2} }
+snippet clai class .. dry initializer .. end
+	#  NOTE mo et po for options
+	#
+	class ${1:`substitute(vim_snippets#Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`}
+		include Service
+		extend Dry::Initializer
+
+		m_option :user_params
+
+		def call
+		  process
+		end
+
+		private
+
+		def process
+		end
+
 	end
 snippet cla< class .. < ParentClass .. initialize .. end
 	class ${1:`substitute(vim_snippets#Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`} < ${2:ParentClass}
@@ -139,6 +166,10 @@ snippet mod module .. end
 		${0}
 	end
 # attr_reader
+########################################################################
+#
+#                                    accessor
+#######################################################################
 snippet r
 	attr_reader :${0:attr_names}
 # attr_writer
