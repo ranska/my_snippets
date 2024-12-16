@@ -1,0 +1,182 @@
+---
+- :trigger: yo
+  :description: ''
+  :code: 'puts "DEBUG: ${1:variable} => #{${1}}"
+
+'
+- :trigger: debug
+  :description: ''
+  :code: 'puts "DEBUG: ${1:variable} => #{${1}}"
+
+'
+- :trigger: class
+  :description: ''
+  :code: |
+    class ${1:ClassName}
+    def initialize(${2:args})
+    ${3:# code}
+    end
+    end
+- :trigger: '"\b(de)?f"'
+  :description: '"def <name>..." r'
+  :code: |
+    def ${1:function_name}${2: ${3:*args} }
+    $0
+    end
+- :trigger: defi
+  :description: '"def initialize ..."'
+  :code: |
+    def initialize $1 `!p write_instance_vars(t[1],snip)`$0
+    end
+- :trigger: defr
+  :description: '"def <name> ... rescue ..."'
+  :code: |
+    def ${1:function_name}${2: ${3:*args} }
+    $4
+    rescue
+    $0
+    end
+- :trigger: desc
+  :description: '"Describe block"'
+  :code: |
+    describe ${1:`substitute(substitute(vim_snippets#Filename(), '_spec$', '', ''), '\(_\|^\)\(.\)', '\u\2', 'g')`} do
+    ${0}
+    end
+- :trigger: rdesc
+  :description: '"RSpec describe block"'
+  :code: |
+    RSpec.describe ${1:`substitute(substitute(vim_snippets#Filename(), '_spec$', '', ''), '\(_\|^\)\(.\)', '\u\2', 'g')`} do
+    ${0}
+    end
+- :trigger: descm
+  :description: '"Describe method"'
+  :code: |
+    describe '${1:#method}' do
+    ${0:pending 'Not implemented'}
+    end
+- :trigger: cont
+  :description: '"Context block"'
+  :code: |
+    context '${1:message}' do
+    ${0}
+    end
+- :trigger: bef
+  :description: '"Before block"'
+  :code: |
+    before :${1:each} do
+    ${0}
+    end
+- :trigger: aft
+  :description: '"After block"'
+  :code: |
+    after :${1:each} do
+    ${0}
+    end
+- :trigger: let
+  :description: '"Let block"'
+  :code: 'let(:${1:object}) { ${0} }
+
+'
+- :trigger: let!
+  :description: '"Let! block"'
+  :code: 'let!(:${1:object}) { ${0} }
+
+'
+- :trigger: subj
+  :description: '"Subject block"'
+  :code: 'subject { ${0} }
+
+'
+- :trigger: s.
+  :description: '"Subject method call"'
+  :code: 'subject.${0:method}
+
+'
+- :trigger: spec
+  :description: '"Specify block"'
+  :code: 'specify { subject.${0} }
+
+'
+- :trigger: exp
+  :description: '"Expect assertion"'
+  :code: 'expect(${1:object}).to ${0}
+
+'
+- :trigger: expb
+  :description: '"Expect block"'
+  :code: 'expect { ${1:object} }.to ${0}
+
+'
+- :trigger: experr
+  :description: '"Expect error"'
+  :code: 'expect { ${1:object} }.to raise_error ${2:StandardError}, /${0:message_regex}/
+
+'
+- :trigger: allow
+  :description: '"Allow stub"'
+  :code: 'allow(${1:object}).to ${0}
+
+'
+- :trigger: shared
+  :description: '"Shared examples"'
+  :code: 'shared_examples ${0:''shared examples name''}
+
+'
+- :trigger: ibl
+  :description: '"It behaves like"'
+  :code: 'it_behaves_like ${0:''shared examples name''}
+
+'
+- :trigger: it
+  :description: '"It block"'
+  :code: |
+    it '${1:spec_name}' do
+    ${0}
+    end
+- :trigger: its
+  :description: '"Its block"'
+  :code: 'its(:${1:method}) { should ${0} }
+
+'
+- :trigger: is
+  :description: '"It should block"'
+  :code: 'it { should ${0} }
+
+'
+- :trigger: isn
+  :description: '"It should_not block"'
+  :code: 'it { should_not ${0} }
+
+'
+- :trigger: iexp
+  :description: '"It with expect"'
+  :code: 'it { expect(${1:object}).${2} ${0} }
+
+'
+- :trigger: iexpb
+  :description: '"It with expect block"'
+  :code: 'it { expect { ${1:object} }.${2} ${0} }
+
+'
+- :trigger: iiexp
+  :description: '"It is expected"'
+  :code: 'it { is_expected.to ${0} }
+
+'
+- :trigger: iiexpn
+  :description: '"It is expected not to"'
+  :code: 'it { is_expected.not_to ${0} }
+
+'
+- :trigger: agg
+  :description: '"Aggregate failures"'
+  :code: |
+    aggregate_failures '${1:message}' do
+    ${0}
+    end
+- :trigger: reek_uf
+  :description: '"reek: Utility Function" b'
+  :code: ''
+- :trigger: reek_atv
+  :description: '"reek: Assume Too Much Variable" b'
+  :code: ''

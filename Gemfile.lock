@@ -1,0 +1,19 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    colorize (1.1.0)
+    thor (1.3.2)
+
+PLATFORMS
+  arm64-darwin-22
+  ruby
+
+DEPENDENCIES
+  colorize
+  thor
+
+RUBY VERSION
+   ruby 3.2.2p53
+
+BUNDLED WITH
+   2.5.4

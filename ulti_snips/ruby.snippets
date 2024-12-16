@@ -176,3 +176,16 @@ aggregate_failures '${1:message}' do
 	${0}
 end
 endsnippet
+
+
+#
+# reek smell comments
+#
+snippet reek_uf "reek: Utility Function" b
+# reek: :reek:UtilityFunction: ignore
+endsnippet
+
+snippet reek_atv "reek: Assume Too Much Variable" b
+# :reek:InstanceVariableAssumption
+endsnippet
+
