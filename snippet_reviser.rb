@@ -9,9 +9,9 @@ class SnippetReviser < Thor
   desc 'revise_snippets INPUT_FILE', 'Revise snippets based on SM2 method'
 
   def revise_snippets(input_file)
-    @snippets = load_snippets(input_file)
+    @snippets        = load_snippets(input_file)
     @correct_answers = 0
-    @total_errors = 0
+    @total_errors    = 0
 
     selected_snippets = @snippets.sample(10)
     process_snippets(selected_snippets)

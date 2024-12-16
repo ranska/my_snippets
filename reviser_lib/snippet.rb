@@ -6,9 +6,9 @@ class Snippet
 
   def initialize(data)
     @description = data[:description]
-    @trigger = data[:trigger]
-    @code = data[:code]
-    @score = data[:score]
+    @trigger     = data[:trigger]
+    @code        = data[:code]
+    @score       = data[:score]
   end
 
   # Ajuster le score avec des limites

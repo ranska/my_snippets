@@ -56,7 +56,8 @@ class Question
 
   def ask_user_answer
     print 'Choisissez une option (1-4): '
-    gets.chomp.to_i - 1
+    input = $stdin.gets.chomp
+    input.to_i - 1
   end
 
   # Vérifier si la réponse est correcte
