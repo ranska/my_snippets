@@ -35,13 +35,9 @@ class SnippetReviser < Thor
   def process_snippets(snippets)
     snippets.each_with_index do |snippet, index|
       puts "\nQuestion #{index + 1}:"
-      question = Question.new(snippet, @snippets)
-      if question.ask
-        @correct_answers += 1
-      else
-        @total_errors += 1
-      end
-      snippet.display_code
+      res = snippet.process index, snippets
+      @correct_answers += res[:answers]
+      @total_errors    += res[:errors]
     end
   end
 

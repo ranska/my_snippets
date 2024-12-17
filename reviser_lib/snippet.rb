@@ -11,19 +11,34 @@ class Snippet
     @score       = data[:score]
   end
 
-  # Ajuster le score avec des limites
   def adjust_score(delta)
     @score = [[@score + delta, -100].max, 100].min
   end
 
-  # Retourner les données sous forme de hash pour YAML
   def to_h
     { description: @description, trigger: @trigger, code: @code, score: @score }
   end
 
-  # Afficher le code du snippet
   def display_code
     puts 'Code du snippet :'
     puts code.green
+  end
+
+  def process index, snippets_pool
+    puts "\nQuestion #{index + 1}:"
+    @question = Question.new self, snippets_pool
+    set_res
+    display_code
+    @res
+  end
+
+  private
+
+  def set_res
+    if @question.ask
+      @res = { answers: 1, errors: 0 }
+    else
+      @res = { answers: 0, errors: 1 }
+    end
   end
 end

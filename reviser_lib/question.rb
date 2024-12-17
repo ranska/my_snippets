@@ -2,10 +2,10 @@
 #
 class Question
   def initialize(snippet, snippets_pool)
-    @snippet = snippet
+    @snippet       = snippet
     @snippets_pool = snippets_pool
     @question_type = rand(2).zero? ? :trigger : :description
-    @options = generate_options
+    @options       = generate_options
   end
 
   # Poser la question et retourner si la réponse est correcte
@@ -13,7 +13,7 @@ class Question
     display_question
     display_options
     user_answer = ask_user_answer
-
+    # TODO: extract method
     if correct_answer?(user_answer)
       puts 'Réponse correcte !'.bold.green
       @snippet.adjust_score(1)
@@ -33,19 +33,28 @@ class Question
 
   def display_question
     if trigger_question?
-      puts 'Quel est le trigger correspondant à cette description ?'.bold.blue
+      puts 'Quel est le trigger correspondant à cette description ?'.bold.yellow
       puts "Description : #{@snippet.description}".bold.yellow
     else
-      puts 'Quelle est la description correspondant à ce trigger ?'.bold.yellow
+      puts 'Quelle est la description correspondant à ce trigger ?'.bold.blue
       puts "Trigger : #{@snippet.trigger}".bold.blue
     end
   end
 
+  def correct_option
+    @snippet.send @question_type
+    # (trigger_question? ? @snippet.trigger : @snippet.description)
+  end
+
   def generate_options
-    correct_option = trigger_question? ? @snippet.trigger : @snippet.description
-    field = @question_type
-    pool = @snippets_pool.map { |s| s.send(field) }.reject { |opt| opt == correct_option }
     ([correct_option] + pool.sample(3)).shuffle
+  end
+
+  def pool
+    res = @snippets_pool.map do |snippet|
+      snippet.send @question_type
+    end
+    res.reject { |opt| opt == correct_option }
   end
 
   def display_options
@@ -60,8 +69,7 @@ class Question
     input.to_i - 1
   end
 
-  # Vérifier si la réponse est correcte
-  def correct_answer?(user_answer)
-    @options[user_answer] == (trigger_question? ? @snippet.trigger : @snippet.description)
+  def correct_answer? user_answer
+    @options[user_answer] == correct_option
   end
 end
