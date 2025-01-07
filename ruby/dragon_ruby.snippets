@@ -1,0 +1,26 @@
+snippet cldb
+	#
+	#
+	class Game
+
+		def initialize args
+			@args = args
+			init_game
+		end
+
+		def args
+			@args
+		end
+
+		def state
+			args.state
+		end
+
+		def tick
+		end
+
+		private
+
+		def init_game
+		end
+	end

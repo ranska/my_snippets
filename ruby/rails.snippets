@@ -2,19 +2,28 @@ snippet ba
 	before_action :${0:method}
 snippet bf
 	before_filter :${0:method}
-snippet bt
+snippet bt belongs_to
 	belongs_to :${0:association}
 snippet btp
 	belongs_to :${1:association}, polymorphic: true
 snippet crw
 	cattr_accessor :${0:attr_names}
+
 ###############################
-#   capybara snippets       #
+#   capybara snippets         #
 ###############################
 snippet api and_path_is path
 	and_path_is ${0:path}
 snippet ci click_id id
 	click_id ${0:id}
+snippet fi_i fill_in id
+	fill_in :${0:value}, with: ${1:value}
+snippet selectf select option from
+	select ${0:option_name}, from: "${1:id}"
+snippet ephc expect page have content
+	expect(page).to \
+	  have_content(${0:content})
+
 ###############################
 #   def method snippets       #
 ###############################
@@ -104,20 +113,18 @@ snippet amc
 	alias_method_chain :${1:method_name}, :${0:feature}
 snippet flash
 	flash[:${1:notice}] = '${0}'
-snippet habtm
-	has_and_belongs_to_many :${1:object}, join_table: '${2:table_name}', foreign_key: '${3}_id'
 snippet hm
 	has_many :${0:object}
 snippet hmd
 	has_many :${1:other}s, class_name: '${2:$1}', foreign_key: '${3:$1}_id', dependent: :destroy
-snippet hmt
+snippet hmt has_many through
 	has_many :${1:object}, through: :${0:object}
 snippet ho
 	has_one :${0:object}
 snippet hod
 	has_one :${1:object}, dependent: :${0:destroy}
 snippet i18
-	I18n.t('${1:type.key}')
+	I18n.t "${1:type.key}"
 snippet ist
 	<%= image_submit_tag('${1:agree.png}', id: '${2:id}'${0}) %>
 snippet log
@@ -148,7 +155,7 @@ snippet mapwo
 	end
 
 ###############################
-#   model snippets   #
+#   model snippets            #
 ###############################
 
 snippet mcht
@@ -290,11 +297,13 @@ snippet mac
 	add_column :${1:table_name}, :${2:column_name}, :${0:data_type}
 snippet mai
 	add_index :${1:table_name}, :${0:column_name}
-snippet mrc
+snippet mrr migration remove_reference
+	remove_reference :${1:table_name}, :${2:model_name}, foreign_key: true
+snippet mrc migration remove_column
 	remove_column :${1:table_name}, :${0:column_name}
-snippet mrnc
+snippet mrnc migration rename_column
 	rename_column :${1:table_name}, :${2:old_column_name}, :${0:new_column_name}
-snippet mcc
+snippet mcc change_column
 	change_column :${1:table}, :${2:column}, :${0:type}
 snippet mnc
 	t.${1:string} :${2:title}${3:, null: false}
