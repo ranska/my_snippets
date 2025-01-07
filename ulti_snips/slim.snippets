@@ -1,0 +1,131 @@
+
+# Fichier Slim.snippets
+extends html
+
+priority -50
+
+snippet % "Ruby inline code" i
+= $0
+endsnippet
+
+snippet = "Ruby expression" i
+= $0
+endsnippet
+
+# Fixtures
+snippet fi "Fixtures.identify(:symbol)"
+= Fixtures.identify(:${1:name})
+$0
+endsnippet
+
+#
+# Form helpers
+#
+#
+snippet ft "form_tag" w
+= form_tag ${1:action: '${2:update}'}${3:, ${4:${5:class}: '${6:form}'}} do
+  $0
+endsnippet
+
+snippet ff "form_for" w
+= form_for @${1:model} do |f|
+  $0
+endsnippet
+
+snippet ffs "form_for submit 2" w
+= ${1:f}.submit '${2:Submit}'${3:, disable_with: '${4:$2ing...}'}
+endsnippet
+
+snippet f.checkbox "f.checkbox" w
+= f.check_box :${1:attribute}
+endsnippet
+
+snippet f.text_field "f.text_field" w
+= f.text_field :${1:attribute}
+endsnippet
+
+snippet f.text_area "f.text_area" w
+= f.text_area :${1:attribute}
+endsnippet
+
+snippet pf "Slim post form to create" b
+= form_with url: ${1:controller_path}, method: :post, local: true do |f|
+  = f.submit '${2:Submit}', id: '${3:submit_id}'
+endsnippet
+
+
+
+# Links
+#
+#
+snippet lia "link_to (action)" w
+= link_to "${1:link text...}", action: "${2:index}"
+endsnippet
+
+snippet lica "link_to (controller, action)" w
+= link_to "${1:link text...}", controller: "${2:items}", action: "${3:index}"
+endsnippet
+
+snippet lt "Link_to"
+= link_to ${1},
+    \ class: :link_back,
+    \ id: :${2} do
+        | ${3}
+endsnippet
+
+snippet ltl "Link with :btn_light class and custom ID"
+= link_to ${1},
+    \ class: :btn_light,
+    \ id: :${2} do
+        | ${3}
+endsnippet
+
+snippet ltb "Link with :link_back class and custom ID"
+= link_to ${1},
+    \ class: :link_back,
+    \ id: :${2} do
+        | ${3}
+endsnippet
+
+#
+# Rendering
+#
+snippet rp "render partial" w
+= render partial: "${1:item}"
+endsnippet
+
+snippet rpc "render partial, collection" w
+= render partial: "${1:item}", collection: ${2:@$1s}
+endsnippet
+
+snippet rpl "render partial, locals" w
+= render partial: "${1:item}", locals: { ${2:$1}: ${3:@$1}$0 }
+endsnippet
+
+snippet rpo "render partial, object" w
+= render partial: "${1:item}", object: ${2:@$1}
+endsnippet
+
+# Assets
+#
+#
+snippet jit "javascript_include_tag" w
+= javascript_include_tag ${1::all}${2:, cache: ${3:true}}
+endsnippet
+
+snippet slt "stylesheet_link_tag" w
+= stylesheet_link_tag ${1::all}${2:, cache: ${3:true}}
+endsnippet
+
+snippet it "image_tag" w
+= image_tag "$1${2:.png}"${3:${4:, title: "${5:title}"}${6:, class: "${7:class}"}}}
+endsnippet
+
+# Buttons
+snippet st "submit_tag" w
+= submit_tag "${1:Submit}"${2:, disable_with: '${3:$1ing...}'}
+endsnippet
+
+snippet ist "image_submit_tag" w
+= image_submit_tag "${1:agree.png}"${2:${3:, id: "${4:${1/^(\w+)(\.\w*)?$/$1/}}"}${5:, name: "${6:${1/^(\w+)(\.\w*)?$/$1/}}"}${7:, class: "${8:${1/^(\w+)(\.\w*)?$/$1/}-button}"}${9:, disabled: ${10:false}}}}
+endsnippet

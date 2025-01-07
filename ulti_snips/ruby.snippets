@@ -1,0 +1,238 @@
+snippet fsl "# frozen_string_literal: true"
+# frozen_string_literal: true
+endsnippet
+
+snippet apv
+  ap "DEBUG: ${1:variable} => #{${1}}"
+endsnippet
+
+snippet debug
+  puts "DEBUG: ${1:variable} => #{${1}}"
+endsnippet
+
+snippet class
+  class ${1:ClassName}
+    def initialize(${2:args})
+      ${3:# code}
+    end
+  end
+endsnippet
+
+priority -50
+
+#
+# Global functions
+#
+
+global !p
+
+def write_instance_vars(arglist, snip):
+	args = str(arglist).split(',')
+	for arg in args:
+		name = arg.strip().replace(':', ' ').split(' ', 1)[0]
+		if name:
+			snip += '  @{} = {}'.format(name, name)
+		else:
+			snip += ''
+
+endglobal
+
+snippet "\b(de)?f" "def <name>..." r
+def ${1:function_name}${2: ${3:*args} }
+	$0
+end
+endsnippet
+
+snippet defi "def initialize ..."
+def initialize $1 `!p write_instance_vars(t[1],snip)`$0
+end
+endsnippet
+
+snippet defr "def <name> ... rescue ..."
+def ${1:function_name}${2: ${3:*args} }
+	$4
+rescue
+	$0
+end
+endsnippet
+
+
+
+##########################
+#     RSpec snippets     #
+##########################
+snippet desc "Describe block"
+describe ${1:`substitute(substitute(vim_snippets#Filename(), '_spec$', '', ''), '\(_\|^\)\(.\)', '\u\2', 'g')`} do
+	${0}
+end
+endsnippet
+
+snippet rdesc "RSpec describe block"
+RSpec.describe ${1:`substitute(substitute(vim_snippets#Filename(), '_spec$', '', ''), '\(_\|^\)\(.\)', '\u\2', 'g')`} do
+	${0}
+end
+endsnippet
+
+snippet descm "Describe method"
+describe '${1:#method}' do
+	${0:pending 'Not implemented'}
+end
+endsnippet
+
+snippet cont "Context block"
+context '${1:message}' do
+	${0}
+end
+endsnippet
+
+snippet bef "Before block"
+before :${1:each} do
+	${0}
+end
+endsnippet
+
+snippet aft "After block"
+after :${1:each} do
+	${0}
+end
+endsnippet
+
+snippet let "Let block"
+let(:${1:object}) { ${0} }
+endsnippet
+
+snippet let! "Let! block"
+let!(:${1:object}) { ${0} }
+endsnippet
+
+snippet subj "Subject block"
+subject { ${0} }
+endsnippet
+
+snippet s. "Subject method call"
+subject.${0:method}
+endsnippet
+
+snippet spec "Specify block"
+specify { subject.${0} }
+endsnippet
+
+snippet exp "Expect assertion"
+expect(${1:object}).to ${0}
+endsnippet
+
+snippet expb "Expect block"
+expect { ${1:object} }.to ${0}
+endsnippet
+
+snippet experr "Expect error"
+expect { ${1:object} }.to raise_error ${2:StandardError}, /${0:message_regex}/
+endsnippet
+
+snippet allow "Allow stub"
+allow(${1:object}).to ${0}
+endsnippet
+
+snippet shared "Shared examples"
+shared_examples ${0:'shared examples name'}
+endsnippet
+
+snippet ibl "It behaves like"
+it_behaves_like ${0:'shared examples name'}
+endsnippet
+
+snippet it "It block"
+it '${1:spec_name}' do
+	${0}
+end
+endsnippet
+
+snippet its "Its block"
+its(:${1:method}) { should ${0} }
+endsnippet
+
+snippet is "It should block"
+it { should ${0} }
+endsnippet
+
+snippet isn "It should_not block"
+it { should_not ${0} }
+endsnippet
+
+snippet iexp "It with expect"
+it { expect(${1:object}).${2} ${0} }
+endsnippet
+
+snippet iexpb "It with expect block"
+it { expect { ${1:object} }.${2} ${0} }
+endsnippet
+
+snippet iiexp "It is expected"
+it { is_expected.to ${0} }
+endsnippet
+
+snippet iiexpn "It is expected not to"
+it { is_expected.not_to ${0} }
+endsnippet
+
+snippet agg "Aggregate failures"
+aggregate_failures '${1:message}' do
+	${0}
+end
+endsnippet
+
+
+#
+# reek smell comments
+#
+snippet reek_uf "reek: Utility Function" b
+# reek: :reek:UtilityFunction: ignore
+endsnippet
+
+snippet reek_atv "reek: Assume Too Much Variable" b
+# :reek:InstanceVariableAssumption
+endsnippet
+
+#
+# turnip step
+#
+snippet step "turnip: step 'message' do"
+step "${1:content}" do
+	${0}
+end
+endsnippet
+
+snippet stepf "turnip: steps_for :scope do"
+steps_for :${1:scope} do
+	${0}
+end
+endsnippet
+
+snippet tapi  "turnip: and_path_is ${0}"
+and_path_is ${0}
+endsnippet
+
+snippet tphi  "turnip: page_have_id :${0}"
+page_have_id :${0}
+endsnippet
+
+#
+# dry initializer and service
+#
+snippet op  "dry-init: option :name"
+option :${0}
+endsnippet
+
+snippet opd  "dry-init: option :name"
+option :${1:name}, default: proc {
+	${0}
+}
+endsnippet
+
+
+#
+# turnip helper
+#
+snippet ci "click_id"
+click_id "${0}""
+endsnippet
