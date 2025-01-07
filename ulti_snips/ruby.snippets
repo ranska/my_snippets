@@ -1,7 +1,11 @@
-
-snippet yo
-  puts "DEBUG: ${1:variable} => #{${1}}"
+snippet fsl "# frozen_string_literal: true"
+# frozen_string_literal: true
 endsnippet
+
+snippet apv
+  ap "DEBUG: ${1:variable} => #{${1}}"
+endsnippet
+
 snippet debug
   puts "DEBUG: ${1:variable} => #{${1}}"
 endsnippet
@@ -189,3 +193,46 @@ snippet reek_atv "reek: Assume Too Much Variable" b
 # :reek:InstanceVariableAssumption
 endsnippet
 
+#
+# turnip step
+#
+snippet step "turnip: step 'message' do"
+step "${1:content}" do
+	${0}
+end
+endsnippet
+
+snippet stepf "turnip: steps_for :scope do"
+steps_for :${1:scope} do
+	${0}
+end
+endsnippet
+
+snippet tapi  "turnip: and_path_is ${0}"
+and_path_is ${0}
+endsnippet
+
+snippet tphi  "turnip: page_have_id :${0}"
+page_have_id :${0}
+endsnippet
+
+#
+# dry initializer and service
+#
+snippet op  "dry-init: option :name"
+option :${0}
+endsnippet
+
+snippet opd  "dry-init: option :name"
+option :${1:name}, default: proc {
+	${0}
+}
+endsnippet
+
+
+#
+# turnip helper
+#
+snippet ci "click_id"
+click_id "${0}""
+endsnippet
