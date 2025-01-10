@@ -1,0 +1,216 @@
+---
+- :description: ''
+  :trigger: yo
+  :code: 'puts "DEBUG: ${1:variable} => #{${1}}"
+
+    '
+  :score: 1
+- :description: ''
+  :trigger: debug
+  :code: 'puts "DEBUG: ${1:variable} => #{${1}}"
+
+    '
+  :score: 0
+- :description: ''
+  :trigger: class
+  :code: |
+    class ${1:ClassName}
+    def initialize(${2:args})
+    ${3:# code}
+    end
+    end
+  :score: 0
+- :description: '"def <name>..." r'
+  :trigger: '"\b(de)?f"'
+  :code: |
+    def ${1:function_name}${2: ${3:*args} }
+    $0
+    end
+  :score: 1
+- :description: '"def initialize ..."'
+  :trigger: defi
+  :code: |
+    def initialize $1 `!p write_instance_vars(t[1],snip)`$0
+    end
+  :score: 0
+- :description: '"def <name> ... rescue ..."'
+  :trigger: defr
+  :code: |
+    def ${1:function_name}${2: ${3:*args} }
+    $4
+    rescue
+    $0
+    end
+  :score: 0
+- :description: '"Describe block"'
+  :trigger: desc
+  :code: |
+    describe ${1:`substitute(substitute(vim_snippets#Filename(), '_spec$', '', ''), '\(_\|^\)\(.\)', '\u\2', 'g')`} do
+    ${0}
+    end
+  :score: 2
+- :description: '"RSpec describe block"'
+  :trigger: rdesc
+  :code: |
+    RSpec.describe ${1:`substitute(substitute(vim_snippets#Filename(), '_spec$', '', ''), '\(_\|^\)\(.\)', '\u\2', 'g')`} do
+    ${0}
+    end
+  :score: 1
+- :description: '"Describe method"'
+  :trigger: descm
+  :code: |
+    describe '${1:#method}' do
+    ${0:pending 'Not implemented'}
+    end
+  :score: 1
+- :description: '"Context block"'
+  :trigger: cont
+  :code: |
+    context '${1:message}' do
+    ${0}
+    end
+  :score: 1
+- :description: '"Before block"'
+  :trigger: bef
+  :code: |
+    before :${1:each} do
+    ${0}
+    end
+  :score: 1
+- :description: '"After block"'
+  :trigger: aft
+  :code: |
+    after :${1:each} do
+    ${0}
+    end
+  :score: 0
+- :description: '"Let block"'
+  :trigger: let
+  :code: 'let(:${1:object}) { ${0} }
+
+    '
+  :score: 1
+- :description: '"Let! block"'
+  :trigger: let!
+  :code: 'let!(:${1:object}) { ${0} }
+
+    '
+  :score: 0
+- :description: '"Subject block"'
+  :trigger: subj
+  :code: 'subject { ${0} }
+
+    '
+  :score: 2
+- :description: '"Subject method call"'
+  :trigger: s.
+  :code: 'subject.${0:method}
+
+    '
+  :score: 2
+- :description: '"Specify block"'
+  :trigger: spec
+  :code: 'specify { subject.${0} }
+
+    '
+  :score: 0
+- :description: '"Expect assertion"'
+  :trigger: exp
+  :code: 'expect(${1:object}).to ${0}
+
+    '
+  :score: 2
+- :description: '"Expect block"'
+  :trigger: expb
+  :code: 'expect { ${1:object} }.to ${0}
+
+    '
+  :score: 2
+- :description: '"Expect error"'
+  :trigger: experr
+  :code: 'expect { ${1:object} }.to raise_error ${2:StandardError}, /${0:message_regex}/
+
+    '
+  :score: 1
+- :description: '"Allow stub"'
+  :trigger: allow
+  :code: 'allow(${1:object}).to ${0}
+
+    '
+  :score: 1
+- :description: '"Shared examples"'
+  :trigger: shared
+  :code: 'shared_examples ${0:''shared examples name''}
+
+    '
+  :score: 1
+- :description: '"It behaves like"'
+  :trigger: ibl
+  :code: 'it_behaves_like ${0:''shared examples name''}
+
+    '
+  :score: 1
+- :description: '"It block"'
+  :trigger: it
+  :code: |
+    it '${1:spec_name}' do
+    ${0}
+    end
+  :score: -2
+- :description: '"Its block"'
+  :trigger: its
+  :code: 'its(:${1:method}) { should ${0} }
+
+    '
+  :score: 1
+- :description: '"It should block"'
+  :trigger: is
+  :code: 'it { should ${0} }
+
+    '
+  :score: 0
+- :description: '"It should_not block"'
+  :trigger: isn
+  :code: 'it { should_not ${0} }
+
+    '
+  :score: 3
+- :description: '"It with expect"'
+  :trigger: iexp
+  :code: 'it { expect(${1:object}).${2} ${0} }
+
+    '
+  :score: 0
+- :description: '"It with expect block"'
+  :trigger: iexpb
+  :code: 'it { expect { ${1:object} }.${2} ${0} }
+
+    '
+  :score: 1
+- :description: '"It is expected"'
+  :trigger: iiexp
+  :code: 'it { is_expected.to ${0} }
+
+    '
+  :score: 0
+- :description: '"It is expected not to"'
+  :trigger: iiexpn
+  :code: 'it { is_expected.not_to ${0} }
+
+    '
+  :score: 0
+- :description: '"Aggregate failures"'
+  :trigger: agg
+  :code: |
+    aggregate_failures '${1:message}' do
+    ${0}
+    end
+  :score: 1
+- :description: '"reek: Utility Function" b'
+  :trigger: reek_uf
+  :code: ''
+  :score: 2
+- :description: '"reek: Assume Too Much Variable" b'
+  :trigger: reek_atv
+  :code: ''
+  :score: 0

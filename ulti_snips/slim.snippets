@@ -18,7 +18,10 @@ snippet fi "Fixtures.identify(:symbol)"
 $0
 endsnippet
 
+#
 # Form helpers
+#
+#
 snippet ft "form_tag" w
 = form_tag ${1:action: '${2:update}'}${3:, ${4:${5:class}: '${6:form}'}} do
   $0
@@ -44,6 +47,12 @@ endsnippet
 snippet f_text_area "f.text_area" w
 = f.text_area :${1:attribute}
 endsnippet
+
+snippet pf "Slim post form to create" b
+= form_with url: ${1:controller_path}, method: :post, local: true do |f|
+  = f.submit '${2:Submit}', id: '${3:submit_id}'
+endsnippet
+
 
 
 
