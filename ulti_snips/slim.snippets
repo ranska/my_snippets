@@ -33,17 +33,139 @@ snippet ffs "form_for submit 2" w
 = ${1:f}.submit '${2:Submit}'${3:, disable_with: '${4:$2ing...}'}
 endsnippet
 
-snippet f.checkbox "f.checkbox" w
+snippet f_checkbox "f.checkbox" w
 = f.check_box :${1:attribute}
 endsnippet
 
-snippet f.text_field "f.text_field" w
+snippet f_text_field "f.text_field" w
 = f.text_field :${1:attribute}
 endsnippet
 
-snippet f.text_area "f.text_area" w
+snippet f_text_area "f.text_area" w
 = f.text_area :${1:attribute}
 endsnippet
+
+
+
+# Simple Form Snippets (sans labels)
+#
+#
+snippet fform "Simple Form - form object" w
+= simple_form_for @${1:model}${2:, html: { class: '${3:form}' }} do |f|
+  $0
+endsnippet
+
+snippet fsub "Simple Form - submit button" w
+= f.submit '${1:Submit}'${2:, class: '${3:btn btn-primary}', disable_with: '${4:Processing...}'}
+endsnippet
+
+snippet finput "Simple Form - input" w
+= f.input :${1:attribute}${2:, input_html: { class: '${3:input}' }}
+endsnippet
+
+snippet ftext "Simple Form - text field" w
+= f.input :${1:attribute}, as: :string
+endsnippet
+
+snippet fpass "Simple Form - password field" w
+= f.input :${1:password}, as: :password
+endsnippet
+
+snippet femail "Simple Form - email field" w
+= f.input :${1:email}, as: :email
+endsnippet
+
+snippet fcheck "Simple Form - checkbox" w
+= f.input :${1:attribute}, as: :boolean
+endsnippet
+
+snippet fradio "Simple Form - radio button" w
+= f.input :${1:attribute}, as: :radio_buttons, collection: ${2:['Option 1', 'Option 2']}
+endsnippet
+
+snippet fselect "Simple Form - select dropdown" w
+= f.input :${1:attribute}, as: :select, collection: ${2:[['Option 1', 1], ['Option 2', 2]]}, include_blank: true
+endsnippet
+
+snippet ftextarea "Simple Form - text area" w
+= f.input :${1:attribute}, as: :text
+endsnippet
+
+snippet fhidden "Simple Form - hidden field" w
+= f.hidden_field :${1:attribute}, value: '${2:value}'
+endsnippet
+
+snippet ffile "Simple Form - file upload" w
+= f.input :${1:file}, as: :file
+endsnippet
+
+snippet fdate "Simple Form - date field" w
+= f.input :${1:date}, as: :date
+endsnippet
+
+snippet ftime "Simple Form - time field" w
+= f.input :${1:time}, as: :time
+endsnippet
+
+
+# Form Options Snippets
+snippet foinput "Options for input types" w
+# Possible options for `as:`
+- :boolean
+- :check_boxes
+- :color
+- :country
+- :date
+- :datetime
+- :datetime_local
+- :email
+- :file
+- :hidden
+- :number
+- :password
+- :phone
+- :radio_buttons
+- :range
+- :rich_text_area
+- :search
+- :select
+- :string
+- :text
+- :textarea
+- :time
+- :url
+endsnippet
+
+snippet focoll "Options for collection" w
+collection: ${1:[['Option 1', 1], ['Option 2', 2]]}, include_blank: true
+endsnippet
+
+snippet fohtml "Options for input_html" w
+input_html: { class: '${1:form-control}', disabled: ${2:false}, readonly: ${3:false}, placeholder: '${4:Enter value}' }
+endsnippet
+
+snippet fofile "Options for file field" w
+input_html: { accept: '${1:image/png,image/jpg}', multiple: ${2:false} }
+endsnippet
+
+snippet fodis "Options for disabled fields" w
+input_html: { disabled: true }
+endsnippet
+
+snippet foarea "Options for textarea fields" w
+input_html: { 
+  rows: ${1:5}, 
+  cols: ${2:40}, 
+  placeholder: '${3:Enter your text here}', 
+  maxlength: ${4:255}, 
+  minlength: ${5:10}, 
+  readonly: ${6:false}, 
+  disabled: ${7:false}, 
+  class: '${8:textarea-class}' 
+}
+endsnippet
+
+
 
 
 # Links
@@ -59,16 +181,16 @@ endsnippet
 
 snippet lt "Link_to"
 = link_to ${1},
-    \ class: :link_back,
-    \ id: :${2} do
-        | ${3}
+	class: :link_back,
+	 id: :${2} do
+		 | ${3}
 endsnippet
 
 snippet ltl "Link with :btn_light class and custom ID"
 = link_to ${1},
-    \ class: :btn_light,
-    \ id: :${2} do
-        | ${3}
+	class: :btn_light,
+	id: :${2} do
+		| ${3}
 endsnippet
 
 snippet ltb "Link with :link_back class and custom ID"
