@@ -259,3 +259,17 @@ snippet ietobt  "it expected to belong_to"
 it { is_expected.to belong_to(:${1:model}).class_name('${2:name}').optional }
 ${0}
 endsnippet
+
+snippet ci "click_id"
+click_id "${0}"
+endsnippet
+
+#####################
+#
+# gems helper
+#
+####################
+snippet aal "act_as_list"
+acts_as_list scope: :${0}
+endsnippet
+

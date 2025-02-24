@@ -1,9 +1,10 @@
 snippet pry
 	- binding.pry
-snippet renp
+snippet rp
 	= render partial: '${0}'
-snippet par
+snippet rpl
 	= render partial: '${1}',
+	  \
 	  locals: {\
 		  ${0}
 		}
@@ -15,8 +16,8 @@ snippet lto
 snippet lt
 	= link_to ${1},
 		\
-		class:  :link_back,
-		id:     :${2} do
+		class:  :link,
+		id:     "${2}" do
 			| ${3}
 snippet ltl
 	= link_to ${1},
@@ -30,6 +31,12 @@ snippet ltb
 		class:  :link_back,
 		id:     :${2} do
 			| ${3}
+
+# collections
+# =====
+snippet ead
+	= ${1}.each do |${2}|
+	  ${3}
 
 # Simple form
 # =====
