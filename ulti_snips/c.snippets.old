@@ -1,0 +1,90 @@
+# Fichier : c_amiga.snippets
+# Snippets pour le C orienté Amiga
+
+
+#
+#
+# amiga ---------------------------------------------
+#
+
+
+
+snippet uw "uword name = val" b
+UWORD pattern = 0xAAAA;
+endsnippet
+
+#
+# amiga ---------------------------------------------
+#
+#
+
+snippet main "Fonction main" b
+int main(int argc, char *argv[]) {
+    ${0}
+    return 0;
+}
+endsnippet
+
+snippet func "Définition d'une fonction" b
+${1:void} ${2:nom_fonction}(${3:void}) {
+    ${0}
+}
+endsnippet
+
+snippet struct "Définition d'une structure" b
+typedef struct ${1:Nom} {
+    ${0}
+} ${1:Nom};
+endsnippet
+
+snippet i "Instruction if" b
+if (${1:condition}) {
+    ${0}
+}
+endsnippet
+
+snippet e "Instruction else" b
+} else {
+    ${0}
+endsnippet
+
+snippet for "Boucle for" b
+for (${1:int i = 0}; ${2:i < n}; ${3:i++}) {
+    ${0}
+}
+endsnippet
+
+snippet while "Boucle while" b
+while (${1:condition}) {
+    ${0}
+}
+endsnippet
+
+snippet do "Boucle do-while" b
+do {
+    ${0}
+} while (${1:condition});
+endsnippet
+
+snippet swi "Instruction switch" b
+switch (${1:expression}) {
+    case ${2:valeur}:
+        ${0}
+        break;
+    default:
+        break;
+}
+endsnippet
+
+snippet reg "Définition de registre" b
+#define ${1:REG_${2:NAME}} ${3:valeur}
+endsnippet
+
+snippet amiga_inc "Inclus Amiga de base" b
+#include <exec/types.h>
+#include <exec/memory.h>
+#include <hardware/custom.h>
+#include <hardware/intbits.h>
+${0}
+endsnippet
+

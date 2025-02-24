@@ -56,6 +56,10 @@ rescue
 end
 endsnippet
 
+snippet defds "ulti est prio"
+def youpi
+end
+endsnippet
 
 
 ##########################
@@ -216,6 +220,10 @@ snippet tphi  "turnip: page_have_id :${0}"
 page_have_id :${0}
 endsnippet
 
+snippet ci "click_id"
+click_id "${0}""
+endsnippet
+
 #
 # dry initializer and service
 #
@@ -229,10 +237,25 @@ option :${1:name}, default: proc {
 }
 endsnippet
 
-
 #
-# turnip helper
+# factory factories
 #
-snippet ci "click_id"
-click_id "${0}""
+snippet asso  "factory: association"
+association :${1:name}
+endsnippet
+snippet assop  "factory: association polymorphic"
+association :${1:name},  factory: [:${2:poly_model}].sample
+${0}
+endsnippet
+snippet fbv  "factory bot value "
+${1:name} { "${2:poly_model}" }
+${0}
+endsnippet
+#
+# rspec
+#
+# it { is_expected.to belong_to(:notions_scout).class_name('UploadedYml').optional }
+snippet ietobt  "it expected to belong_to"
+it { is_expected.to belong_to(:${1:model}).class_name('${2:name}').optional }
+${0}
 endsnippet

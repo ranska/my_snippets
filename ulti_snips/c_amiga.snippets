@@ -1,0 +1,86 @@
+# File: c_special.snippets
+# Special C snippets for demo and hardware-oriented programming.
+# These snippets are designed for minimalistic C code without an OS or standard libraries,
+# optimized for demos (code size < 4KB) and direct hardware access.
+
+###############################################################################
+# Define a constant macro (e.g., CUSTOM_BASE, EXEC_BASE)
+###############################################################################
+snippet define_const "Define a constant macro" b
+#define ${1:NAME} ${2:VALUE}
+endsnippet
+
+###############################################################################
+# Define a typedef (e.g., UWORD, ULONG)
+###############################################################################
+snippet typedef_def "Define a typedef (e.g., UWORD, ULONG)" b
+typedef ${1:unsigned short} ${2:TypeName};
+endsnippet
+
+###############################################################################
+# Define a register macro for hardware access (e.g., CUSTOM, COP1LCH)
+###############################################################################
+snippet reg_macro "Define a register macro for hardware access" b
+#define ${1:REGISTER} ((REG${2:W})${3:BASE})
+endsnippet
+
+###############################################################################
+# Define a chip memory array (e.g., for copper lists)
+###############################################################################
+snippet chip_array "Define a chip memory array (e.g., copper list)" b
+static ${1:const} UWORD __chip ${2:array_name}[] = {
+  ${0}
+};
+endsnippet
+
+###############################################################################
+# Generate a wait loop for a hardware condition (e.g., waiting for VBlank)
+###############################################################################
+snippet wait_loop "Generate a wait loop for a hardware condition" b
+while(*(volatile unsigned char *)${1:ADDRESS} & (1 << ${2:BIT})) {
+  ${0}
+}
+endsnippet
+
+###############################################################################
+# Save a hardware register value for later restoration
+###############################################################################
+snippet save_regs "Save a hardware register value" b
+ULONG old${1:Reg} = *(REGL)${2:ADDR};
+endsnippet
+
+###############################################################################
+# Restore a previously saved hardware register value
+###############################################################################
+snippet restore_regs "Restore a saved hardware register value" b
+${1:REGISTER}[${2:OFFSET}] = old${3:Reg};
+endsnippet
+
+###############################################################################
+# Minimal main function without OS or standard libraries (<4KB demos)
+###############################################################################
+snippet main_minimal "Minimal main function" b
+int main(void) {
+  ${0}
+  return 0;
+}
+endsnippet
+
+###############################################################################
+# Initialize or disable display by setting custom chip registers
+###############################################################################
+snippet init_display "Initialize/disable display using custom chip registers" b
+// Disable old display
+COP1LCH[0] = (ULONG)${1:display_array} >> 16;
+COP1LCL[0] = (ULONG)${1:display_array} & 0xFFFF;
+endsnippet
+
+###############################################################################
+# Wait for vertical blank (VBlank) using a hardware register
+###############################################################################
+snippet vblank_wait "Wait for vertical blank (VBlank)" b
+while(*(volatile unsigned char *)${1:VBL_ADDRESS} & (1 << ${2:VBL_BIT})) {
+  ${0}
+}
+endsnippet
+
