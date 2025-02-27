@@ -1,0 +1,6 @@
+snippet enum "gem enumerize"
+extend Enumerize${0}
+enumerize :${1:name}, in: %w(${2:list}),
+	default: :${3:see_anotate}
+validates :${4:todo_name}, presence: true
+endsnippet

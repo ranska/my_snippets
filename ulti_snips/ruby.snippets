@@ -181,6 +181,12 @@ aggregate_failures '${1:message}' do
 end
 endsnippet
 
+snippet expenum "expect for gem enumerize TODO fix dup"
+it "have value ${3:name_again} include in enum list" do
+	is_expected.to validate_inclusion_of(:${1:name}).in_array \
+		described_class.${2:name_again}.values
+end
+endsnippet
 
 #
 # reek smell comments
@@ -193,9 +199,11 @@ snippet reek_atv "reek: Assume Too Much Variable" b
 # :reek:InstanceVariableAssumption
 endsnippet
 
+#####################
 #
 # turnip step
 #
+####################
 snippet step "turnip: step 'message' do"
 step "${1:content}" do
 	${0}
@@ -216,9 +224,34 @@ snippet tphi  "turnip: page_have_id :${0}"
 page_have_id :${0}
 endsnippet
 
+snippet ci "click_id"
+click_id "${0}"
+endsnippet
+
+snippet tfi "fill_in :attr_name, with :value"
+fill_in :${1:field_name}, with: ${2:value}
+endsnippet
+
+snippet taf "attach_file :attr_name, file_path"
+attach_file :${1:field_name}, ${2:file_path}
+endsnippet
+
+snippet trb "Capybara Radio Button" b
+choose "${1:radio_button_label}"
+endsnippet
+
+snippet tccb "Capybara Check Checkbox" b
+check "${1:checkbox_label}"
+endsnippet
+
+snippet tcucb "Capybara Uncheck Checkbox" b
+uncheck "${1:checkbox_label}"
+endsnippet
+#####################
 #
 # dry initializer and service
 #
+#####################
 snippet op  "dry-init: option :name"
 option :${0}
 endsnippet
@@ -230,13 +263,6 @@ option :${1:name}, default: proc {
 endsnippet
 
 
-#
-# turnip helper
-#
-snippet ci "click_id"
-click_id "${0}"
-endsnippet
-
 #####################
 #
 # gems helper
@@ -244,5 +270,16 @@ endsnippet
 ####################
 snippet aal "act_as_list"
 acts_as_list scope: :${0}
+endsnippet
+
+
+#####################
+#
+# rails
+#
+####################
+
+snippet rtp "redirect_to path"
+redirect_to ${0}
 endsnippet
 
